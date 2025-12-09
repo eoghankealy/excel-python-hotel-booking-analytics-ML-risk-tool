@@ -172,9 +172,40 @@ Test Window: January 2017 - August 2017 (8 months)
 ## Dashboards & Model Screenshots
 
 
+- **Cancellation Risk Tool**  
+  ![Cancellation Risk Tool](./screenshots/risk_tool.png)
+
 - **Resort Hotel Dashboard**  
   ![Resort Hotel Dashboard](./screenshots/resort_dashboard.png)
-`
+
+- **City Hotel Dashboard**  
+  ![City Hotel Dashboard](./screenshots/city_dashboard.png)
+
+- **Resort v City  Dashboard**  
+  ![Resort v City Dashboard](./screenshots/resort_v_city_dashboard.png)
+
+ - **Forecast Dashboard**  
+  ![Resort Hotel Dashboard](./screenshots/forecast_dashboard.png)
+
+
+ **ROC Curve**  
+  ![ ROC Curve](./screenshots/train_roc_curve.png)
+
+ **Test ROC Curve**  
+  ![Test ROC Curve](./screenshots/test_roc_curve.png)
+
+ **Risk Tool Explainer**  
+  ![Risk Tool Explainer](./screenshots/risk_tool_explainer.png)
+
+ **Logistic Reegression Results**  
+  ![Logistic Regresion Results](./screenshots/python_logistic_regression_results.png)
+
+
+ **1 Year Forecast Tool**  
+  ![Forecast tool](./screenshots/forecast_tool.png)
+
+ **What If Cancellation Tool**  
+  ![What If](./screenshots/what_if_cancellation_tool.png)
 
 
 ## Project Status
