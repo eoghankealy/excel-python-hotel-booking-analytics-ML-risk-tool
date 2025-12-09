@@ -184,6 +184,7 @@ Test Window: January 2017 - August 2017 (8 months)
 - **Resort v City  Dashboard**  
   ![Resort v City Dashboard](./screenshots/resort_v_city_dashboard.png)
 
+
  - **Forecast Dashboard**  
   ![Resort Hotel Dashboard](./screenshots/forecast_dashboard.png)
 
