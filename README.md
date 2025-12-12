@@ -1,213 +1,194 @@
-# Hotel Booking Cancellation Risk Analysis & Revenue Optimization Project Overview
+# Hotel Booking Analytics with ML-Powered Cancellation Risk Tool  
 
 
-An end-to-end data analytics solution designed to predict hotel booking cancellations and optimize revenue preservation through targeted guest interventions. Built using booking data from two Portuguese hotels (one city hotel, one resort hotel) spanning July 2015 to August 2017.
-This project demonstrates the complete analytics lifecycle: from exploratory analysis and dashboard development, through predictive modeling and validation, to actionable business tools with quantified ROI.
+
+**End-to-end analytics project (Excel + Python)** —  that predicts booking cancellations, operationalises a staff-facing risk tool, and quantifies revenue impact using real booking data from two Portuguese hotels (July 2015 – Aug 2017).
+
+## Project Evolution ##
+
+This project began with the goal of keeping everything inside Excel. I built four full dashboards, a heuristic scorecard model, manually calculated confusion matrices, and ROC curves entirely in Excel. As I pushed for better prediction accuracy, I introduced supervised machine learning through logistic regression — but Excel couldn't reliably compute the coefficients.
+
+**Solution:** I trained the model in Python, then deployed the resulting coefficients back into Excel for operational use. This hybrid approach maintains Excel's accessibility for hotel staff while leveraging Python's computational power for model training.
+
+## What's Included
+
+The project demonstrates the complete analytics lifecycle: exploratory analysis, dashboard design, feature engineering, predictive modelling, model validation, and the creation of operational business tools with quantified ROI.
+
+**Core Components:**
+
+- Four interactive Excel dashboards analyzing €25.8M in combined hotel revenue, booking patterns, seasonal trends, and market segments
+- Production-ready cancellation risk tool powered by logistic regression (AUC 0.803) that classifies bookings into High/Medium/Low risk categories with recommended interventions
+- 12-month revenue forecasting tool with adjustable cancellation-rate parameters to simulate policy impacts
+- Historical "what-if" revenue analyzer quantifying past revenue loss from cancellations
+- Cost-benefit simulator estimating €57k–€523k in potential annual revenue recovery across realistic intervention scenarios
+
+The system provides weekly intervention workloads (100 bookings/week flagged) and clear, actionable frameworks for staff to reduce cancellations and preserve revenue.
+
+
+
+
+**Note:** This README provides a high-level overview of the project. For detailed dashboard insights, modelling notes, recommended business actions and additional analysis, see insights_actions_notes.md.
+
+
+
 
 ## Business Problem
 Hotels face significant revenue loss from booking cancellations. The Resort Hotel experienced a 28% cancellation rate while the City Hotel faced 42% cancellations during the analysis period. Without a systematic approach to identify high-risk bookings, hotels must choose between:
 
 - Accepting revenue loss from cancellations
 - Implementing blanket policies that may frustrate low-risk guests
-Manually reviewing all bookings (time-intensive and inconsistent)
+- Manually reviewing all bookings (time-intensive and inconsistent)
 
-Solution: A machine learning-powered risk assessment tool that identifies high-risk bookings for targeted intervention, with potential to preserve €160k-€300k in annual revenue.
-
-## Key Components
-
-1. **Interactive Business Dashboards**
-Four comprehensive Excel dashboards providing operational insights 
-- Resort Hotel Dashboard - Performance metrics including €11.4M total revenue, €96 average ADR, 26,854 bookings, and seasonal revenue patterns
-- City Hotel Dashboard - Analytics showing €14.4M total revenue, €107 average ADR, 45,434 bookings, with market segment breakdowns
-- Comparative Analysis Dashboard - Side-by-side comparison of both properties across key metrics, revealing operational differences and opportunities
-- Forecast & Statistics Dashboard - Revenue forecasting tools with adjustable cancellation rates, historical "what-if" analysis, and cancellation risk model performance metrics
-
- Technical Features:
-- Interactive slicers for filtering by year, season, market segment, and country
-- Adjustable slider controls for forecasting scenarios
-- Professional design mimicking Tableau/Power BI aesthetic using - Excel shapes and formatting
-Custom navigation system with hyperlinked page buttons
+**Solution:** A machine learning-powered risk assessment tool that identifies high-risk bookings for targeted intervention, with demonstrated potential to recover €164k–€310k annually at realistic 10-15% intervention success rates.
 
 
-2. **Cancellation Risk Prediction Model**
-
-Model Development Journey
-- Phase 1 - Heuristic Scorecard Model:
-
-Manually engineered point-based scoring system
-Variables selected through business logic and exploratory analysis
-Complete ROC curve analysis and confusion matrix performed manually in Excel.
-Result: ROC curve showed the model did not quite capture as many cancellations as hoped and that the model could be improved upon
-
-- Phase 2 - Logistic Regression Model (Final):
-
-Training period: July 2015 - December 2016
-Validation period: January 2017 - August 2017
-Python used for coefficient calculation (Excel computation limitations)
-Coefficients implemented back into Excel for operational deployment
-
-**Model Performance**
-
-| Metric | Value | Interpretation |
-| :--- | :--- | :--- |
-| **AUC Score** | 0.8034 | Strong discriminatory power between cancellations and completions |
-| **Recall** | 51% | Identifies over half of all actual cancellations |
-| **Precision** | 62% | 62% of flagged bookings are correct (38% false alarm rate) |
-| **Optimal Threshold** | 0.30 | Maximizes revenue preservation given €650 average booking value |
-
-
-Lead time until arrival,
-Average Daily Rate (ADR),
-Market segment,
-Previous cancellation history,
-Booking changes,
-Deposit type,
-Special requests,
-Guest nationality and repeat guest status
-
-3. **Operational Risk Tool**
-
-An Excel-based interface that translates model predictions into actionable risk categories:
-
-| Risk Level | Probability Range | Recommended Action | Volume |
-| :--- | :--- | :--- | :--- |
-| **Low Risk** | 0-29% | Passive monitoring only | ~51% of bookings |
-| **Medium Risk** | 30-49% | Automated email reminders, flexible upsell offers | ~46/week |
-| **High Risk** | 50%+ | Direct contact via email/phone, retention incentives | ~54/week |
-
-
-**User Workflow:**
-
-Input booking variables from reservation system
-Tool calculates cancellation probability
-Color-coded risk level displayed (red/yellow/blue)
-Specific intervention actions recommended
-Staff can track and update booking status
-
- 4. **ROI Analysis & Business Case
-Cost-Benefit Modeling**
-
-The model evaluates intervention effectiveness across multiple scenarios:
-
-- Conservative Case (€3 cost, 5% success rate): +€96,761/year
-
-- Base Case (€5 cost, 10% success rate): +€196,801/year
-
-- Strong Case (€8 cost, 15% success rate): +€293,562/year
-
-**Key Finding:**
-
- The model generates positive ROI across all realistic intervention scenarios, with returns of €164,001 to €310,000 annually even at conservative success rates of 5-10%.
-Risk Segmentation Results
-From 2017 test data, the model flagged 3,280 bookings requiring intervention:
-
-- 1,763 High-Risk bookings (54/week) - Priority for direct contact
-
-- 1,517 Medium-Risk bookings (46/week) - Suitable for automated follow-ups
-
-- Low-Risk bookings monitored passively
-
-Revenue at Risk: €4,134,202 in 2017, with potential to save nearly 5% through targeted interventions.
-
-## Technical Skills Demonstrated
-
-**Data Analysis & Visualization**
-
-- Exploratory data analysis on 115,000+ booking records
-- Dashboard design and development in Excel
-- Visual storytelling through appropriate chart selection
-- Interactive filtering and navigation systems
-
-**Statistical Modeling**
-- Feature engineering and selection
-- Heuristic model development
-- Logistic regression implementation
-- Model evaluation (ROC curves, AUC, confusion matrices)
-- Threshold optimization for business objectives
-- Train-test validation methodology
-
-**Business Analytics**
-
-- Cost-benefit analysis
-- ROI calculation and scenario modeling
-- Revenue forecasting with adjustable parameters
-- Risk segmentation strategy
-- Conversion of technical metrics into business KPIs
-
-**Technical Tools**
-
-Excel: Advanced formulas, conditional formatting, data modeling, dashboard design
-Python: Logistic regression, coefficient calculation
-Domain Knowledge: Hospitality revenue management, booking behavior patterns
-
-## Model Insights & Validation
-
-The logistic regression model's ROC-AUC of 0.803 represents strong separation between guests who cancel versus those who complete their stays. The selected operating threshold of 0.30 probability balances:
-
-Recall (51%): Catching half of all cancellations before they occur
-
-Precision (62%): Maintaining reasonable accuracy to avoid intervention fatigue
-
-False Alarm Rate (38%): Acceptable given low intervention costs and high booking values
-
-This threshold maximizes expected revenue preservation given the high average booking value (€650) and manageable cost of interventions.
-Data Source & Period
-
-Source: Booking data from two hotels in Portugal
-
-Properties: One resort hotel, one city hotel
-
-Period: July 2015 - August 2017 (25 months)
-
-Records: Approximately 115,000+ bookings
-
-Training Window: July 2015 - December 2016 (18 months)
-
-Test Window: January 2017 - August 2017 (8 months)
+---
 
 
 
 
 
-## Dashboards & Model Screenshots
-
-
-- **Cancellation Risk Tool**  
+## Project summary (what I built)
+1. **Cancellation Risk Tool (Excel)**  
+   - Logistic regression scoring implemented in Excel using coefficients exported from Python.  
+   - Live input form: staff enter booking variables → sheet calculates logit → probability → Low/Medium/High risk with conditional formatting.  
+   - Heuristic scorecard (manual, point-based); my initial model to calculate the cancellation risk; ROC & confusion matrix were produced manually in Excel.
+   - **Cancellation Risk Tool**  
   ![Cancellation Risk Tool](./screenshots/risk_tool.png)
 
-- **Resort Hotel Dashboard**  
-  ![Resort Hotel Dashboard](./screenshots/resort_dashboard.png)
-
-- **City Hotel Dashboard**  
-  ![City Hotel Dashboard](./screenshots/city_dashboard.png)
-
-- **Resort v City  Dashboard**  
-  ![Resort v City Dashboard](./screenshots/resort_v_city_dashboard.png)
-
-
- - **Forecast Dashboard**  
-  ![Resort Hotel Dashboard](./screenshots/forecast_dashboard.png)
-
-
- **ROC Curve**  
-  ![ ROC Curve](./screenshots/train_roc_curve.png)
-
- **Test ROC Curve**  
-  ![Test ROC Curve](./screenshots/test_roc_curve.png)
-
- **Risk Tool Explainer**  
-  ![Risk Tool Explainer](./screenshots/risk_tool_explainer.png)
-
- **Logistic Reegression Results**  
-  ![Logistic Regresion Results](./screenshots/python_logistic_regression_results.png)
-
-
- **1 Year Forecast Tool**  
+2. **Four interactive Excel dashboards**  
+   - **City Hotel**: KPIs, revenue timeline, seasonal revenue, top seling agents
+   - **Resort Hotel**: KPIs, revenue timeline, seasonal revenue, top seling agents 
+   - **Resort vs City**: comparative analytics.  
+   - **Forecast & Statistics**: 12-month forecasts, cancellation-adjusted projections, adjustable cancellation-rate slider, and cost-benefit analysis.  
+   - Dashboards use slicers, sliders, hyperlinks and polished visuals built entirely in Excel to mimic BI tooling.
+   - **Resort Hotel Dashboard**  
+     ![Resort Hotel Dashboard](./screenshots/resort_dashboard.png)
+     **City Hotel Dashboard**  
+      ![City Hotel Dashboard](./screenshots/city_dashboard.png)
+    **Resort v City  Dashboard**  
+       ![Resort v City Dashboard](./screenshots/resort_v_city_dashboard.png)
+     **Forecast Dashboard**  
+       ![Resort Hotel Dashboard](./screenshots/forecast_dashboard.png)
+     **1 Year Forecast Tool**  
   ![Forecast tool](./screenshots/forecast_tool.png)
+    **What If Cancellation Tool**  
+     ![What If](./screenshots/what_if_cancellation_tool.png)
 
- **What If Cancellation Tool**  
-  ![What If](./screenshots/what_if_cancellation_tool.png)
+
+     
+
+3. **Modeling & Validation**  
+   - **Heuristic scorecard**: manually engineered, useful for interpretability but underperformed on ROC.  
+   - **Logistic regression (final)**: trained on **July 2015 – Dec 2016**, validated on **Jan – Aug 2017**. Python used for coefficient estimation (Excel numerical limits). Coefficients applied back into Excel for deployment.
+
+---
+## Cancellation Risk Model Key metrics (AUC: 0.8034, Threshold = 0.30)
 
 
-## Project Status
-🔧 **Work in progress** — new features, documentation, and refinements will be added soon.
+- **AUC:** 0.8034 (strong discrimination)  
+- **Recall (True Positives):** 51% — Model successfully catches just over half of actual cancellations.
+- **Precision (Flag reliability):** 62% — 62% of flagged bookings are correctly identified as actual cancellations 
+- **Predicted positives (flagged bookings on 2017 test):** **3,280**  
+  - High Risk: 1,763 (≈54/week)  
+  - Medium Risk: 1,517 (≈46/week)  
+  - Low Risk: remainder  
+- **Average booking value used in ROI:** ≈ **€650**  
+- **Selected operating threshold:** 0.30, chosen via cost–benefit reasoning to maximise expected revenue preservation.
+
+**Cost–Benefit / ROI (sensitivity)**
+
+Net benefit calculated as:
+Net Benefit = (Flagged × Effectiveness × AvgBookingValue) − (Flagged × OutreachCost)
+
+
+Representative outcomes (Net Benefit per year from 3,280 flagged bookings):
+
+| Effectiveness | €3.00 | €5.00 | €8.00 | €10.00 | €15.00 |
+|---:|---:|---:|---:|---:|---:|
+| 5%  | €96,761  | €90,201  | €80,361  | €73,801 | €57,401 |
+| 10% | €203,361 | €196,801 | €186,961 | €180,401 | €164,001 |
+| 15% | €309,962 | €303,402 | €293,562 | €287,002 | €270,602 |
+| 20% | €416,563 | €410,003 | €400,163 | €393,603 | €377,203 |
+| 25% | €523,164 | €516,604 | €506,764 | €500,204 | €483,804 |
+
+**Key finding:** The model generates positive ROI across realistic intervention scenarios (even conservative cases).
+
+
+
+**Data & scope**
+- **Source:**  [Hotel Booking Data From Kaggle](https://www.kaggle.com/datasets/mojtaba142/hotel-booking)
+- **Period:** July 2015 – August 2017 (training: Jul 2015–Dec 2016; test: Jan–Aug 2017)  
+- **Records:** 
+  - 37,524 resort hotel bookings for regression model (after cleaning)
+- **Core features:** lead time, ADR, length of stay, market segment, deposit type, previous cancellations, booking changes, repeat guest flag, nationality, special requests
+
+---
+
+## Skills & tools demonstrated
+- **Data wrangling & feature engineering** (Excel & Python)  
+- **Modeling:** heuristic scorecard, logistic regression, ROC/AUC, confusion matrix, threshold optimisation  
+- **Operationalisation:** Excel scoring sheet with conditional formatting & navigation, user inputs, clickable buttons  
+- **Visualization:** interactive Excel dashboards (slicers, sliders, charts) with a BI-style look and user experience  
+- **Business analytics:** cost-benefit analysis, revenue forecasting, scenario modelling  
+- **Tools:** Excel (advanced formulas, pivot tables, slicers, shapes), Python (logistic regression, ROC Curve, Confusion Matrix)
+
+---
+## Project Files
+
+```text
+hotel_bookings
+│
+├── data/
+│   └── hotel_bookings.csv        ← original dataset
+├── excel/
+│   └── hotel_bookings_analytics.xlsx
+│       ├── Hotel Booking Data    ← cleaned dataset
+│       ├── Resort Hotel Dashboard
+│       ├── City Hotel Dashboard
+│       ├── Resort vs City Dashboard
+│       ├── Forecast & Statistics Dashboard
+│       └── Cancellation Risk Tool
+│
+├── python/
+│   ├── logistic_regression.ipynb
+│   ├── test_2017_data_logistic_regression_for_python.csv
+│   └── train_logistic_regression_for_python.csv
+│ 
+├── images/
+│   ├── roc_curve_comparison.png
+│   ├── resort_dashboard.png
+│   ├── city_dashboard.png
+│   ├── comparison_dashboard.png
+│   ├── forecast_dashboard.png
+│   ├── risk_tool.png
+│   └── cost_benefit_analysis.png
+│
+├── documentation/
+│   ├── data_preparation.md
+│   ├── model_methodology.md
+│   └── insights_actions_notes.md
+│
+└── README.md
+```
+---
+
+
+> **Project Info**  
+> **Data Source:** [Kaggle Hotel Bookings](https://www.kaggle.com/datasets/mojtaba142/hotel-booking)       
+> The data is originally from the article Hotel Booking Demand Datasets, written by Nuno Antonio, Ana Almeida, and Luis Nunes for Data in Brief, Volume 22, February 2019. Available here: [Hotel booking demand datasets](https://www.sciencedirect.com/science/article/pii/S2352340918315191?via%3Dihub#s0005)   
+> **Tools:** Excel, Python    
+> **Records:** 119,390 → 115,958 (cleaned)   
+> **Removed Records:** 3,432 (≈2.87%).  
+>
+
+
+## Contact
+
+
+For professional inquiries and networking:
+
+[Connect on LinkedIn](https://www.linkedin.com/in/eoghan-kealy-08b044263)
+
+
+
