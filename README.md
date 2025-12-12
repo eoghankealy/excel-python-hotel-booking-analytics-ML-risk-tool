@@ -72,7 +72,8 @@ Hotels face significant revenue loss from booking cancellations. The Resort Hote
        ![Resort Hotel Dashboard](./screenshots/forecast_dashboard.png)
      **1 Year Forecast Tool**  
   ![Forecast tool](./screenshots/forecast_tool.png)
-    **What If Cancellation Tool**  
+
+     **What If Cancellation Tool**  
      ![What If](./screenshots/what_if_cancellation_tool.png)
 
 
@@ -88,7 +89,7 @@ Hotels face significant revenue loss from booking cancellations. The Resort Hote
 
 - **AUC:** 0.8034 (strong discrimination)  
 - **Recall (True Positives):** 51% — Model successfully catches just over half of actual cancellations.
-- **Precision (Flag reliability):** 62% — 62% of flagged bookings are correctly identified as actual cancellations 
+- **Precision (Flag reliability):** 62% — 62% of flagged bookings are correctly identified as actual cancellations (38% false alarm rate)
 - **Predicted positives (flagged bookings on 2017 test):** **3,280**  
   - High Risk: 1,763 (≈54/week)  
   - Medium Risk: 1,517 (≈46/week)  
