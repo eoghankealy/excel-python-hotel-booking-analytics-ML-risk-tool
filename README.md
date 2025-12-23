@@ -1,4 +1,4 @@
-# Hotel Booking Analytics with ML-Powered Cancellation Risk Tool  
+# Hotel Booking Analytics with ML-Powered Cancellation Risk Tool (Automated) 
 
 
 
@@ -10,19 +10,27 @@ This project began with the goal of keeping everything inside Excel. I built fou
 
 **Solution:** I trained the model in Python, then deployed the resulting coefficients back into Excel for operational use. This hybrid approach maintains Excel's accessibility for hotel staff while leveraging Python's computational power for model training.
 
+As the project matured, the tool was fully operationalised through Python automation. Incoming booking files can now be batch-processed automatically, scored through the Excel risk model while the workbook is open or closed, and exported as timestamped outputs — transforming the model from an analytical prototype into a repeatable, production-style workflow.
+
 ## What's Included
 
-The project demonstrates the complete analytics lifecycle: exploratory analysis, dashboard design, feature engineering, predictive modelling, model validation, and the creation of operational business tools with quantified ROI.
+The project demonstrates the complete analytics lifecycle: exploratory analysis, dashboard design, feature engineering, predictive modelling, model validation, and the creation of operational business tools with quantified ROI. It also includes end-to-end automation, enabling non-technical users to run the scoring pipeline with minimal manual steps.
 
 **Core Components:**
 
 - Four interactive Excel dashboards analyzing €25.8M in combined hotel revenue, booking patterns, seasonal trends, and market segments
 - Production-ready cancellation risk tool powered by logistic regression (AUC 0.803) that classifies bookings into High/Medium/Low risk categories with recommended interventions
+- Automated batch scoring pipeline (Python + Excel)
+   - Processes incoming CSV booking files
+    - Writes bookings into Excel for scoring
+     - Reads calculated risk outputs
+     - Exports scored results to timestamped CSVs
+     - Archives processed files automatically
 - 12-month revenue forecasting tool with adjustable cancellation-rate parameters to simulate policy impacts
 - Historical "what-if" revenue analyzer quantifying past revenue loss from cancellations
 - Cost-benefit simulator estimating €57k–€523k in potential annual revenue recovery across realistic intervention scenarios
 
-The system provides weekly intervention workloads (100 bookings/week flagged) and clear, actionable frameworks for staff to reduce cancellations and preserve revenue.
+The system provides weekly intervention workloads (100 bookings/week flagged) and clear, actionable frameworks for staff to reduce cancellations and preserve revenue.The final risk calculation remains Excel-based, ensuring transparency and interpretability for non-technical users.
 
 
 
@@ -51,30 +59,37 @@ Hotels face significant revenue loss from booking cancellations. The Resort Hote
 ## Project summary (what I built)
 1. **Cancellation Risk Tool (Excel)**  
    - Logistic regression scoring implemented in Excel using coefficients exported from Python.  
-   - Live input form: staff enter booking variables → sheet calculates logit → probability → Low/Medium/High risk with conditional formatting.  
+   - staff facing input form: booking variables entered → sheet calculates logit → probability → Low/Medium/High risk with conditional formatting.  
+       - Two implementations of the risk tool:
+         - Automated risk tool (separate workbook, risk_tool/).  
+          Dedicated Excel workbook designed for automation and batch processing which  is used by the Python pipeline to score incoming booking files and export results automatically
+          - Embedded risk tool (main analytics workbook)
+Original interactive version used for exploratory analysis, demonstrations, and dashboard integration. Not automated, retained for transparency and analytical context
    - Heuristic scorecard (manual, point-based); my initial model to calculate the cancellation risk; ROC & confusion matrix were produced manually in Excel.
+
+  
    - **Cancellation Risk Tool**  
-  ![Cancellation Risk Tool](./screenshots/risk_tool.png)
+  ![Cancellation Risk Tool](./images/risk_tool.png)
 
 2. **Four interactive Excel dashboards**  
-   - **City Hotel**: KPIs, revenue timeline, seasonal revenue, top seling agents
-   - **Resort Hotel**: KPIs, revenue timeline, seasonal revenue, top seling agents 
+   - **City Hotel**: KPIs, revenue timeline, seasonal revenue, top selling agents
+   - **Resort Hotel**: KPIs, revenue timeline, seasonal revenue, top selling agents 
    - **Resort vs City**: comparative analytics.  
    - **Forecast & Statistics**: 12-month forecasts, cancellation-adjusted projections, adjustable cancellation-rate slider, and cost-benefit analysis.  
    - Dashboards use slicers, sliders, hyperlinks and polished visuals built entirely in Excel to mimic BI tooling.
    - **Resort Hotel Dashboard**  
-     ![Resort Hotel Dashboard](./screenshots/resort_dashboard.png)
+     ![Resort Hotel Dashboard](./images/resort_dashboard.png)
      **City Hotel Dashboard**  
-      ![City Hotel Dashboard](./screenshots/city_dashboard.png)
+      ![City Hotel Dashboard](./images/city_dashboard.png)
     **Resort v City  Dashboard**  
-       ![Resort v City Dashboard](./screenshots/resort_v_city_dashboard.png)
+       ![Resort v City Dashboard](./images/resort_v_city_dashboard.png)
      **Forecast Dashboard**  
-       ![Resort Hotel Dashboard](./screenshots/forecast_dashboard.png)
+       ![Resort Hotel Dashboard](./images/forecast_dashboard.png)
      **1 Year Forecast Tool**  
-  ![Forecast tool](./screenshots/forecast_tool.png)
+  ![Forecast tool](./images/forecast_tool.png)
 
      **What If Cancellation Tool**  
-     ![What If](./screenshots/what_if_cancellation_tool.png)
+     ![What If](./images/what_if_cancellation_tool.png)
 
 
      
@@ -129,10 +144,16 @@ Representative outcomes (Net Benefit per year from 3,280 flagged bookings):
 ## Skills & tools demonstrated
 - **Data wrangling & feature engineering** (Excel & Python)  
 - **Modeling:** heuristic scorecard, logistic regression, ROC/AUC, confusion matrix, threshold optimisation  
-- **Operationalisation:** Excel scoring sheet with conditional formatting & navigation, user inputs, clickable buttons  
+- **Operationalisation:**  
+  - Excel based scoring tool with conditional formatting & navigation, user inputs, clickable buttons  
+   - Automated batch scoring pipeline integrating Python and Excel (xlwings)
+   - File-based workflows (ingest → score → export → archive)
+
 - **Visualization:** interactive Excel dashboards (slicers, sliders, charts) with a BI-style look and user experience  
 - **Business analytics:** cost-benefit analysis, revenue forecasting, scenario modelling  
-- **Tools:** Excel (advanced formulas, pivot tables, slicers, shapes), Python (logistic regression, ROC Curve, Confusion Matrix)
+- **Tools:** 
+  - Excel (advanced formulas, pivot tables, slicers, shapes), Python (logistic regression, ROC Curve, Confusion Matrix)
+  - Python: pandas, xlwings, logistic regression, ROC curves, confusion matrices, automation scripts
 
 ---
 ## Project Files
@@ -153,22 +174,36 @@ hotel_bookings
 │
 ├── python/
 │   ├── logistic_regression.ipynb
+│   ├── import_bookings.py
+│   ├── run_import.command
+│   ├── logistic_regression.pdf
 │   ├── test_2017_data_logistic_regression_for_python.csv
 │   └── train_logistic_regression_for_python.csv
 │ 
 ├── images/
-│   ├── roc_curve_comparison.png
+│   ├── test_roc_curve.png
 │   ├── resort_dashboard.png
 │   ├── city_dashboard.png
-│   ├── comparison_dashboard.png
+│   ├── city_v_resort_dashboard.png
+│   ├── python_logistic_regression_results.png
 │   ├── forecast_dashboard.png
+│   ├── forecast_tool.png│  
+│   ├── train_roc_curve.png
+│   ├── what_if_cancellation_tool.png
+│   ├── risk_tool_explainer.png
 │   ├── risk_tool.png
-│   └── cost_benefit_analysis.png
+│   └── cost_benefit.png
 │
+├── risk_tool/
+│   ├── cancellation_risk_tool.xlsx
+│   ├── processed_bookings
+│   ├── scored_output
+│   └── incoming_bookings
+│           └── new_bookings.csv
+│ 
 ├── documentation/
-│   ├── data_preparation.md
-│   ├── model_methodology.md
-│   └── insights_actions_notes.md
+│   ├── dashboard_and_model_notes.md
+│   └── insights_actions.md
 │
 └── README.md
 ```
