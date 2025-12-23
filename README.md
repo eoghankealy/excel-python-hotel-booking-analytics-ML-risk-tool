@@ -35,7 +35,7 @@ The system provides weekly intervention workloads (100 bookings/week flagged) an
 
 
 
-**Note:** This README provides a high-level overview of the project. For detailed dashboard insights, modelling notes, recommended business actions and additional analysis, see insights_actions_notes.md.
+**Note:** This README provides a high-level overview of the project. For detailed dashboard insights, modelling notes, recommended business actions and additional analysis, see  **insights_actions.md** and **dashboard_and_model_notes.md** located in the Documentation folder
 
 
 
