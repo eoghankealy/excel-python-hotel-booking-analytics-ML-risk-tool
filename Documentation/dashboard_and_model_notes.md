@@ -91,7 +91,78 @@ While the dashboards and analytical models provide meaningful operational insigh
 
 ---
 
+# Cancellation Risk Model — Evolution & Rationale
 
+This project documents the progression from a rule-based heuristic model built entirely in Excel to a statistically optimized logistic regression model trained in Python and operationalized in Excel.
+
+## 1️⃣ Initial Approach: Heuristic Scorecard Model (Excel)
+
+To remain fully within Excel initially, I designed a heuristic cancellation risk scorecard, assigning weighted points to predictors based on exploratory analysis and business intuition.
+
+Key features included:
+
+* Lead time (engineered using bins informed by weighted cancellation-rate analysis)
+* Previous cancellations
+* Deposit type
+* Repeat guest indicator
+* Number of booking changes
+* Market segment (scaled to prevent dominance of a single variable)
+
+This model produced a monotonic increase in cancellation rates across score bands and was evaluated using confusion matrices, ROC curves, and threshold testing implemented directly in Excel.
+
+Limitations identified:
+
+* Recall of approximately 41%, indicating many missed cancellations
+* Low precision, resulting in a high false-positive rate
+* ROC performance close to random (AUC ≈ 0.50)
+
+These results indicated that while the model had structure, it lacked statistical optimization.
+
+## 2️⃣ Transition to Logistic Regression (Excel → Python)
+
+To improve predictive performance, I implemented a logistic regression model. Due to numerical instability and Solver limitations in Excel (overflow and convergence issues), model estimation was transitioned to Python.
+
+Additional variables and feature engineering introduced in the final model:
+
+* Standardised ADR (z-score) to ensure numerical stability and comparability across predictors
+* Nationality binary indicator, coded as:
+   * `1` = Portuguese guests
+   * `0` = all other nationalities This was included to capture domestic vs international booking behavior
+* Market segment dummy variables, created to represent categorical booking channels
+   * Direct bookings were used as the reference category, as one category must be excluded to avoid multicollinearity (dummy variable trap)
+
+Continuous variables (Lead Time, ADR) were standardized prior to modeling, and categorical variables were converted to binary indicators to enable proper coefficient estimation.
+
+### 🔍 Key Insight: Lead Time Reinterpreted
+
+A major analytical insight emerged when comparing the heuristic and regression models:
+
+* Heuristic (bivariate) analysis suggested longer lead times increased cancellation risk.
+* Multivariate logistic regression revealed a negative coefficient for lead time once deposit type and booking channel were controlled for.
+
+This demonstrated that lead time was acting as a proxy variable for more influential predictors (particularly deposit policy). Once these factors were accounted for, longer lead times slightly reduced cancellation risk — highlighting the difference between correlation and causation.
+
+## 3️⃣ Threshold Optimization & Model Selection
+
+Multiple probability thresholds were tested on out-of-sample (2017) data. A cutoff of 0.30 was selected based on operational cost trade-offs:
+
+* Recall: ~63% (significant reduction in missed cancellations)
+* Precision: ~51% (manageable false-positive rate)
+* False negatives reduced by ~37% relative to the heuristic model
+* AUC ≈ 0.78, indicating strong discriminative power
+
+This threshold reflects revenue-management priorities, where missed cancellations are more costly than additional follow-up on high-risk bookings.
+
+## 4️⃣ Final Outcome & Deployment
+
+* The logistic regression model fully replaces the heuristic scorecard
+* Python is used for model training, validation, and coefficient estimation
+* Excel is used for deployment, allowing non-technical users to:
+   * Input new bookings
+   * Automatically calculate cancellation probabilities
+   * Flag high-risk reservations using the optimized 0.30 threshold
+
+This workflow mirrors real-world analytics practice: statistical modeling in Python, operational decision-making in Excel.
 
 ## Model Assumptions & Limitations
 
