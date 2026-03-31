@@ -118,7 +118,10 @@ Net benefit calculated as:
 Net Benefit = (Flagged × Effectiveness × AvgBookingValue) − (Flagged × OutreachCost)
 
 
-Representative outcomes (Net Benefit per year from 3,280 flagged bookings):
+Representative outcomes can be seen in the table below
+ (Net Benefit per year from 3,280 flagged bookings):
+
+**ROI at €3–€15 outreach cost/booking (3,280 flagged/year):**
 
 | Effectiveness | €3.00 | €5.00 | €8.00 | €10.00 | €15.00 |
 |---:|---:|---:|---:|---:|---:|
